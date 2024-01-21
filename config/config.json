@@ -1,0 +1,22 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "rkdb",
+    "database": "wd-todo-dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5433
+  },
+  "test": {
+    "username": "postgres",
+    "password": "rkdb",
+    "database": "wd-todo-test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "port": 5433
+  },
+  "production": {
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres"
+  }
+}
