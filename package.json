@@ -7,7 +7,7 @@
     "start": "nodemon -e js,ejs",
     "start:prod": "node index.js",
     "db:create:test": "set NODE_ENV=test&& npx sequelize-cli db:create",
-    "db:create:production": "set NODE_ENV=production&& npx sequelize-cli db:create",
+    "db:create": "sequelize db:create"
     "pretest": "set NODE_ENV=test&& npx sequelize-cli db:drop && set NODE_ENV=test&& npx sequelize-cli db:create",
     "test": "set NODE_ENV=test&& jest --detectOpenHandles",
     "prepare": "cd .. &&  npx sequelize-cli db:create"
