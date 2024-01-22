@@ -57,7 +57,7 @@ app.post("/todos", async (request, response) => {
       dueDate: request.body.dueDate,
       completed: false,
     }).save();
-    return response.json(todo);
+   return response.redirect("/");
   } catch (error) {
     console.log(error);
     console.log("Validation error:", error);
@@ -82,13 +82,10 @@ app.put("/todos/:id/markAsCompleted", async (request, response) => {
 app.delete("/todos/:id", async (request, response) => {
   console.log("Delete a todo by ID: ", request.params.id);
   try {
-    const result = await Todo.destroy({
-      where: { id: request.params.id },
-    });
-    return response.json(result > 0);
+    await Todo.remove(request.params.id);
+    return response.json({success :true});
   } catch (error) {
-    console.log(error);
-    return response.status(500).json({ error: "Internal Server Error" });
+    return response.status(422).json({ error: "Internal Server Error" });
   }
 });
 module.exports = app;
