@@ -11,13 +11,30 @@ app.use(bodyParser.json());
 
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
+   const formattedDate = (d) => {
+    return d.toISOString().split("T")[0];
+  };
   const allTodos = await Todo.getTodos();
+  var dateToday = new Date();
+  const today = formattedDate(dateToday);
+  const overdue = allTodos.filter(todo => {
+    const todoDueDate = formattedDate(new Date(todo.dueDate));
+    return todoDueDate < today;
+  });
+  const dueToday = allTodos.filter(todo => {
+    const todoDueDate = formattedDate(new Date(todo.dueDate));
+    return todoDueDate === today;
+  });
+  const dueLater = allTodos.filter(todo => {
+    const todoDueDate = formattedDate(new Date(todo.dueDate));
+    return todoDueDate > today;
+  });
   if (request.accepts("html")) {
     response.render("index", {
-      allTodos,
+      allTodos,overdue,dueToday,dueLater
     });
   } else {
-    response.json({ allTodos });
+    response.json({ allTodos,overdue,dueToday,dueLater });
   }
 });
 app.use(express.static(path.join(__dirname, "public")));
