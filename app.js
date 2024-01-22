@@ -6,13 +6,17 @@ const app = express();
 const { Todo } = require("./models");
 const path = require("path");
 const bodyParser = require("body-parser");
+// const csurf = require("csurf");
+// const cookieParser = require("cookie-parser");
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
+// app.use(cookieParser("shh! some secret string"));
+// app.use(csurf({cookie:true}));
 // eslint-disable-next-line no-unused-vars
 
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
-   const formattedDate = (d) => {
+  const formattedDate = (d) => {
     return d.toISOString().split("T")[0];
   };
   const allTodos = await Todo.getTodos();
@@ -58,7 +62,7 @@ app.post("/todos", async (request, response) => {
       dueDate: request.body.dueDate,
       completed: false,
     }).save();
-   return response.redirect("/");
+    return response.redirect("/");
   } catch (error) {
     console.log(error);
     console.log("Validation error:", error);
