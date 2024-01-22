@@ -7,6 +7,7 @@ const { Todo } = require("./models");
 const path = require("path");
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended: false}));
 // eslint-disable-next-line no-unused-vars
 
 app.set("view engine", "ejs");
