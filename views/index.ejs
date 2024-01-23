@@ -9,10 +9,12 @@
      <title>Todo app</title>
      <script>
             function updateTodo(id) {
+    const bool = document.querySelector(`#todo-checkbox-${id}`).checked;
     fetch(`/todos/${id}/markAsCompleted`, {
         method: "put",
         headers: { "Content-Type": "application/json" },
         body:JSON.stringify({
+            completed: bool,
             "_csrf": document.querySelector('meta[name="csrf-token"]').content,
         })
     })
