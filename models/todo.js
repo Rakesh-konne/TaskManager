@@ -14,10 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     static getTodos() {
       return this.findAll();
     }
-    markAsComplete() {
-      return this.update({ completed: !this.completed });
+    setCompletionStatus(boolval) {
+      return this.update({ completed: boolval });
     }
-    
+
+    markAsCompleted() {
+      return this.update({ completed: true });
+    }
     
     static async remove(id){
       return this.destroy({

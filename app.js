@@ -75,18 +75,17 @@ app.post("/todos", async (request, response) => {
 });
 
 // PUT http://mytodoapp.com/todos/123/markAsCompleted
-app.put("/todos/:id/markAsCompleted", async (request, response) => {
+app.put("/todos/:id", async (request, response) => {
   console.log("We have to update a todo with ID:", request.params.id);
   const todo = await Todo.findByPk(request.params.id);
   try {
-    const updatedTodo = await todo.markAsComplete();
+    const updatedTodo = await todo.setCompletionStatus(!todo.completed);
     return response.json(updatedTodo);
   } catch (error) {
     console.log(error);
     return response.status(427).json(error);
   }
 });
-
 // eslint-disable-next-line no-unused-vars
 app.delete("/todos/:id", async (request, response) => {
   console.log("Delete a todo by ID: ", request.params.id);
