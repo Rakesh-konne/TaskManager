@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     static getTodos() {
       return this.findAll();
     }
-    static setCompletionStatus(id, completed) {
-    return this.update({ completed: completed }, { where: { id } });
+    static setCompletionStatus(bool) {
+    return this.update({ completed: bool});
     }
     
     static async remove(id){
