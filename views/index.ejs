@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="<%= csrfToken %>" >
     <link rel="stylesheet" href="./css/styles.css">  
     <script src="https://cdn.tailwindcss.com"></script>
      <title>Todo app</title>
@@ -11,10 +12,13 @@
     fetch(`/todos/${id}/markAsCompleted`, {
         method: "put",
         headers: { "Content-Type": "application/json" },
+        body:JSON.stringify({
+            "_csrf": document.querySelector('meta[name="csrf-token"]').content,
+        })
     })
     .then((res) => {
         if (res.ok) {
-            window.location.href = window.location.href; // Reload the entire page
+            window.location.reload();
         }
     })
     .catch((err) => console.error(err));
@@ -23,6 +27,9 @@
             fetch(`/todos/${id}`,{
             method: "delete",
             headers: { "Content-Type" : "application/json"},
+            body:JSON.stringify({
+                "_csrf": document.querySelector('meta[name="csrf-token"]').content,
+            })
             })
             .then((res)=>{
                 if(res.ok){
@@ -42,6 +49,7 @@
     <div class=" grid grid-cols-6"> :
         <div class="col-start-3 col-span-2">
     <form action="/todos" method="post">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="flex gap-2 py-4">
             <div class="flex-auto">
                 <input type="text" name="title" placeholder="what's next?" class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm" required>
