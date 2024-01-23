@@ -1,4 +1,4 @@
-<h5>Overdue</h5>
+ya<h5>Overdue</h5>
     <p id="count-overdue">Count: <%= overdue.length %> </p>
     <ul class="list-none">
         <%for(var i=0;i<overdue.length;i++) { %>
@@ -55,7 +55,7 @@
             <%for(var i=0;i<completetodos.length;i++) { %>
             <li class="Todo-Item">
                 <div class="flex items-centerw-fit my-2 px-2 py-1 rounded  hover:bg-purple-50"  >
-                    <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray border-gray" onclick="updateTodo( <%= completetodos[i].id %>)" id="todo-checkbox-<%= completetodos[i].id %>" "checked" %> >
+                    <input type="checkbox" class="w-4 h-4 text-blue-600 bg-gray border-gray" onclick="updateTodo( <%= completetodos[i].id %>)" id="todo-checkbox-<%= completetodos[i].id %>" checked >
                     <label  class="ml-2 text-sm text-gray-600 cursor-pointer" for="todo-checkbox-<%= completetodos[i].id %>" ><%= completetodos[i].title %></label>
                     <a href="#" class="hidden trash-icon ml-2" onclick="deleteTodo(<%= completetodos[i].id %>)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
