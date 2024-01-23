@@ -8,8 +8,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static associate(models){
+      Todo.belongsTo(models.User,{
+        foreignKey:'userId'
+      })
+    }
+
+    static addTodo({ title, dueDate,userId }) {
+      return this.create({ title: title, dueDate: dueDate, completed: false ,userId});
     }
     static getTodos() {
       return this.findAll();
@@ -22,10 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       return this.update({ completed: true });
     }
     
-    static async remove(id){
+    static async remove(id,userId){
       return this.destroy({
         where:{
           id,
+          userId
         },
       });
     }
