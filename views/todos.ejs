@@ -1,3 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styles.css">  
+    <script src="https://cdn.tailwindcss.com"></script>
+     <title>Todo app</title>
+     <script>
+            function updateTodo(id) {
+    const bool = document.querySelector(`#todo-checkbox-${id}`).checked;
+    fetch(`/todos/${id}/markAsCompleted`, {
+        method: "put",
+        headers: { "Content-Type": "application/json" },
+        body:JSON.stringify({
+            completed: bool,
+            "_csrf": document.querySelector('meta[name="csrf-token"]').content,
+        })
+    })
+    .then((res) => {
+        if (res.ok) {
+            window.location.reload();
+        }
+    })
+    .catch((err) => console.error(err));
+}
+        function deleteTodo(id){
+            fetch(`/todos/${id}`,{
+            method: "delete",
+            headers: { "Content-Type" : "application/json"},
+            body:JSON.stringify({
+                "_csrf": document.querySelector('meta[name="csrf-token"]').content,
+            })
+            })
+            .then((res)=>{
+                if(res.ok){
+                    window.location.reload();
+                } 
+            })
+            .catch((err)=> console.error(err));
+        }
+     </script>
+</head>
+<body>
+
 <h5>Overdue</h5>
     <p id="count-overdue">Count: <%= overdue.length %> </p>
     <ul class="list-none">
@@ -69,3 +114,5 @@
 </div>
 </div>
 </div>
+</body>
+</html>
