@@ -24,23 +24,26 @@ app.get("/", async (request, response) => {
   const today = formattedDate(dateToday);
   const overdue = allTodos.filter(todo => {
     const todoDueDate = formattedDate(new Date(todo.dueDate));
-    return todoDueDate < today;
+    return todoDueDate < today && !todo.completed;
   });
   const dueToday = allTodos.filter(todo => {
     const todoDueDate = formattedDate(new Date(todo.dueDate));
-    return todoDueDate === today;
+    return todoDueDate === today && !todo.completed;
   });
   const dueLater = allTodos.filter(todo => {
     const todoDueDate = formattedDate(new Date(todo.dueDate));
-    return todoDueDate > today;
+    return todoDueDate > today && !todo.completed;
   });
+
+  const completetodos = allTodos.filter(todo => todo.completed === true);
+
   if (request.accepts("html")) {
     response.render("index", {
-      allTodos,overdue,dueToday,dueLater,
+      allTodos,overdue,dueToday,dueLater,completetodos,
       csrfToken:request.csrfToken(),
     });
   } else {
-    response.json({ allTodos,overdue,dueToday,dueLater });
+    response.json({ allTodos,overdue,dueToday,dueLater,completetodos });
   }
 });
 app.use(express.static(path.join(__dirname, "public")));
