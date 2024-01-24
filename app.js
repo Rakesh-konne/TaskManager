@@ -18,6 +18,10 @@ const LocalStrategy = require("passport-local");
 const bcrypt=require('bcrypt');
 const saltRounds=10;
 
+const flash = require("connect-flash");
+app.set("views", path.join(__dirname, "views"));
+app.use(flash());
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser("shh! some secret string"));
@@ -44,14 +48,17 @@ passport.use(new LocalStrategy({
     if(result){
       return done(null,user);
     }else{
-      return done("Invalid Password");
+      return done(null, false, { message: "Invalid Password" });
     }
   }).catch((error)=>{
     return {error}
   })
 }));
 
-
+app.use(function (request, response, next) {
+  response.locals.messages = request.flash();
+  next();
+});
 
 passport.serializeUser((user, done)=>{
   console.log("Serializing user in session",user.id)
@@ -114,6 +121,11 @@ app.get("/signup",(request,response)=>{
 app.post("/users",async(request,response)=>{
   const hashedPwd=await bcrypt.hash(request.body.password,saltRounds)
   console.log(hashedPwd)
+  const { firstName, lastName, email, password } = request.body;
+  if (!firstName || !lastName || !email || !password) {
+    request.flash("error", "Enter the details");
+    return response.redirect("/signup");
+  }
   try{
     const user=await User.create({
       firstName:request.body.firstName,
