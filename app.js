@@ -76,9 +76,17 @@ passport.deserializeUser((id,done)=>{
 
 app.set("view engine", "ejs");
 app.get("/", async (request, response) => {
-  response.render("index", {
-    csrfToken:request.csrfToken(),
-  });
+  if (request.isAuthenticated()) {
+    return response.redirect("/todos");
+  } else {
+    if (request.accepts("html")) {
+      response.render("index", {
+        csrfToken: request.csrfToken(),
+      });
+    } else {
+      response.json({ message: "Not authenticated" });
+    }
+  }
 });
 
 app.get("/todos",connectEnsureLogin.ensureLoggedIn(), async (request,response)=>{
