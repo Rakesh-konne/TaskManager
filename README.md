@@ -3,8 +3,9 @@
   It is designed to help users efficiently manage their tasks by providing a user-friendly interface for task categorization and status tracking.
 ## Deployed Application
 
-  Check out the live version of the TaskManager [here](https://test-deploy-ctt1.onrender.com)
+  Check out the live version of the TaskManager [here](https://test-deploy-ctt1.onrender.com).
 **Features**
+
   **  User Authentication**
     
         Login: Secure user login system to ensure personalized task management.
@@ -24,6 +25,7 @@
     Pending Tasks: Shows tasks that are yet to be started or are in progress.
     Completed Tasks: Users can mark tasks as complete once they are done, moving them out of the pending category.
   **  Technical Stack**
+  
     Backend: Node.js with Express framework for building a robust and scalable server-side application.
     Database: Utilizes a PostgreSQL database  to store user information and task data.
     Authentication: Implements user authentication and authorization using libraries like Passport.js.
