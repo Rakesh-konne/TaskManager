@@ -29,4 +29,4 @@
     Backend: Node.js with Express framework for building a robust and scalable server-side application.
     Database: Utilizes a PostgreSQL database  to store user information and task data.
     Authentication: Implements user authentication and authorization using libraries like Passport.js.
-    Password-encryption: Implements passwords encryption using hasing with help of bcrypt.
+    Password-encryption: Implements passwords encryption using hasing with help of bcrypt
