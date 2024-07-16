@@ -4,7 +4,7 @@
 ## Deployed Application
 
   Check out the live version of the TaskManager [here](https://test-deploy-ctt1.onrender.com).
-**Features**
+## Features
 
   **  User Authentication**
     
